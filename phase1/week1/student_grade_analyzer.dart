@@ -8,7 +8,7 @@ void main() {
   };
 
   studentGrades.forEach((key, value) {
-    print('$key - $value - ${value >= 50 ? 'Psss' : 'Fail'}');
+    print('$key - $value - ${value >= 50 ? 'Pass' : 'Fail'}');
   });
 
   int totalScore = 0;
@@ -18,9 +18,11 @@ void main() {
   }
   ;
 
-  print('Average score: ${totalScore / studentGrades.length}');
+  // print('Average score: ${totalScore / studentGrades.length}');
 
   List<int> studentScores = [...studentGrades.values];
+
+  
 
   // print(
   //   'Highest score: ${studentScores.reduce((value, element) {
@@ -33,13 +35,14 @@ void main() {
   // );
   int highestScore = 0;
   String highestScorer = '';
-
-  studentGrades.forEach((name, score) {
-    if (score > highestScore) {
+  
+  studentGrades.forEach((name, score){
+    if(score > highestScore){
       highestScore = score;
       highestScorer = name;
     }
   });
+  
+print(studentGrades.map((key, value)=> MapEntry(key, value >= 50 ? 'Pass' : 'Fail')));
 
-  print('Highest score: $highestScore by $highestScorer');
 }
