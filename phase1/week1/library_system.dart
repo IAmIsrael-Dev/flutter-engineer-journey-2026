@@ -25,6 +25,7 @@ abstract class User {
   User(this.name);
 
   void displayRole();
+  String get displayName => name.capitalized();
 }
 
 // User user = User(); // this wrong
@@ -109,4 +110,5 @@ void main() {
   print(student.name.capitalized());
   print(librarian.name.capitalized());
   print(teacher.name.capitalized());
+  print(student.displayName);
 }
