@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+// import 'package:flutter/rendering.dart';
+import 'widgets/profile_header.dart';
+import 'widgets/profile_info_row.dart';
+import 'widgets/profile_bio.dart';
+import 'widgets/portfolio_button.dart';
+import 'widgets/social_link_row.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,145 +55,79 @@ class MyApp extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const CircleAvatar(
-                            backgroundColor: Colors.indigo,
-                            radius: 52,
-                            child: Text(
-                              'AI',
-                              style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                          const ProfileHeader(),
 
-                          SizedBox(height: 24),
-
-                          Text(
-                            'Israel',
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-
-                          SizedBox(height: 8),
-
-                          Text(
-                            'Banker ➜ Flutter Engineer',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.black87,
-                            ),
-                          ),
                           SizedBox(height: 24),
 
                           Divider(color: Colors.blueGrey),
 
                           SizedBox(height: 16),
-                          Text(
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 15,
-                              height: 1.5,
-                              color: Colors.black87,
-                            ),
-                            'Passionate about building finance-focused mobile apps with Flutter. Currently transitioning from banking into professional mobile engineering.',
+
+                          const ProfileBio(
+                            bio:
+                                'I am building my career as a Flutter mobile engineer, '
+                                'with a focus on writing clean, maintainable and '
+                                'production-ready applications.',
                           ),
 
                           SizedBox(height: 24),
 
-                          Row(
-                            children: const [
-                              Icon(Icons.email, color: Colors.blue),
-                              SizedBox(width: 12),
-                              Expanded(
-                                child: Text(
-                                  'israel.this.is.a.very.long.email.address.that.might.not.fit@example.com',
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
+                          const ProfileInfoRow(
+                            icon: Icons.email,
+                            label: 'Email',
+                            value: 'Israel@example',
+                          ),
+
+                          const SizedBox(height: 14),
+
+                          const ProfileInfoRow(
+                            icon: Icons.phone,
+                            label: 'Phonenumber',
+                            value: '+234 000 000 000',
+                          ),
+
+                          const SizedBox(height: 14),
+
+                          const ProfileInfoRow(
+                            icon: Icons.location_on,
+                            label: 'Location',
+                            value: 'Lagos, Nigeria',
+                          ),
+
+                          const SizedBox(height: 14),
+
+                          const ProfileInfoRow(
+                            icon: Icons.code,
+                            label: 'Portfolio link',
+                            value: 'github.com/israel-dev',
                           ),
 
                           SizedBox(height: 14),
 
-                          Row(
-                            children: [
-                              const Icon(Icons.phone, color: Colors.blue),
-                              const SizedBox(width: 12),
-                              Text(
-                                '+234 800 000 0000',
-                                style: TextStyle(
-                                  fontSize: screenWidth < 400 ? 12 : 18,
-                                ),
-                              ),
-                            ],
+                          const SocialLinkRow(
+                            icon: Icons.facebook,
+                            platform: 'Facebook',
+                            username: '@israel.facebook',
                           ),
 
                           SizedBox(height: 14),
 
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Icon(Icons.location_on, color: Colors.blue),
-                              SizedBox(width: 12),
-                              Flexible(
-                                child: Text(
-                                  // overflow: TextOverflow.ellipsis,
-                                  'israel.this.is.a.very.long.email.address.that.might.not.fit@example.com',
-                                ),
-                              ),
-                            ],
+                          const SocialLinkRow(
+                            icon: Icons.message,
+                            platform: 'WhatSapp',
+                            username: '@israel.whasapp',
                           ),
 
                           SizedBox(height: 14),
 
-                          Row(
-                            children: const [
-                              Icon(Icons.code, color: Colors.blue),
-                              SizedBox(width: 12),
-                              Expanded(
-                                child: Text(
-                                  'github.com/israel-dev',
-                                  overflow: TextOverflow.ellipsis,
+                          PortfolioButton(
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Portfolio coming soon!'),
                                 ),
-                              ),
-                            ],
-                          ),
-
-                          SizedBox(height: 14),
-
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 14,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Portfolio feature coming soon!',
-                                    ),
-                                  ),
-                                );
-                              },
-
-                              child: const Text(
-                                'View Portfolio',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
+                              );
+                            },
                           ),
 
                           SizedBox(height: 14),
