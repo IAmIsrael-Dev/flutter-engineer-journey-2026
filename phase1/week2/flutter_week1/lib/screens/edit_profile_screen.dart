@@ -26,7 +26,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back))],
+        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.menu))],
         title: const Text('Edit Profile Screen'),
         centerTitle: true,
       ),
@@ -64,9 +65,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
-                  if (value == null ||
-                      value.trim().isEmpty && !value.contains('@')) {
+                  if (value == null || value.trim().isEmpty) {
                     return 'please enter your email';
+                  }
+
+                  if (!value.contains('@')) {
+                    return 'please enter a valid email';
                   }
                   return null;
                 },
@@ -82,8 +86,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
-                  if (value == null ||
-                      value.trim().isEmpty && value.trim().length < 20) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'please enter your bio';
+                  }
+                  if (value.trim().length < 20) {
                     return 'please enter your bio';
                   }
                   return null;
@@ -98,16 +104,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      if(_formKey.currentState!.validate()){
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text('Form is valid')));
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Form is valid')),
+                        );
                         print('Form is valid');
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Form is not valid')),
+                        );
+                        print('Form is not valid');
                       }
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text('Form is not valid')));
-                      print('Form is not valid');
                     },
                     child: Text('Save form'),
                   ),
