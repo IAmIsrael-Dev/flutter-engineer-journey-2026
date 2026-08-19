@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ProfileHeader extends StatelessWidget{
- const  ProfileHeader({super.key});
+class ProfileHeader extends StatelessWidget {
+  final String name;
+  final String bio;
+
+  const ProfileHeader({super.key, required this.name, required this.bio});
 
   @override
-  Widget build(context){
-    return Column(children: [
+  Widget build(context) {
+    return Column(
+      children: [
         const CircleAvatar(
           backgroundColor: Colors.indigo,
           radius: 52,
@@ -22,17 +26,19 @@ class ProfileHeader extends StatelessWidget{
         SizedBox(height: 24),
 
         Text(
-          'Israel',
+          name.isNotEmpty ? name : 'Your name will appear here',
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
         ),
 
         SizedBox(height: 8),
 
         Text(
-          'Flutter Mobile Engineer',
-          // textAlign: TextAlign.center,
+          bio.isNotEmpty ? bio : 'Your bio developer path will appear here',
+          textAlign: TextAlign.center,
           style: TextStyle(fontSize: 16, color: Colors.black87),
         ),
-      ]);
+      ],
+    );
   }
 }

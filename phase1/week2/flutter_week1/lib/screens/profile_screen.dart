@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_week1/screens/edit_profile_screen.dart';
 import '../widgets/portfolio_button.dart';
 import '../widgets/profile_bio.dart';
 import '../widgets/profile_header.dart';
@@ -15,6 +16,10 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isFollowing = false;
   bool isAvailable = true;
+
+  String name = '';
+  String email = '';
+  String bio = '';
 
   void toggleFollowing() {
     setState(() => isFollowing = !isFollowing);
@@ -60,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const ProfileHeader(),
+                        ProfileHeader(name: name, bio: bio),
 
                         SizedBox(height: 24),
 
@@ -77,10 +82,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                         SizedBox(height: 24),
 
-                        const ProfileInfoRow(
+                        ProfileInfoRow(
                           icon: Icons.email,
                           label: 'Email',
-                          value: 'Israel@example',
+                          value: email.isNotEmpty ? email : 'you@example',
                         ),
 
                         const SizedBox(height: 14),
@@ -163,6 +168,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ? 'Available for freelance work'
                                 : 'Currently unavailable',
                           ),
+                        ),
+
+                        SizedBox(height: 14),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueGrey,
+                            foregroundColor: Colors.white,
+                            side: BorderSide(color: Colors.brown, width: 2),
+                            fixedSize: const Size(400, 30),
+                          ),
+                          onPressed: () async {
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const EditProfileScreen(),
+                              ),
+                            );
+
+                            if(result != null){
+                              setState((){
+                                name = result.name;
+                                email = result.email;
+                                bio = result.bio;
+                              });
+                            }
+
+                            print(result);
+                          },
+                          child: Text('Edit Profile Screen'),
                         ),
                       ],
                     ),

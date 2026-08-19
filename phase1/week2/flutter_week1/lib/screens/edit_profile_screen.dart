@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_week1/models/profile_data.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  EditProfileScreen({super.key});
+  const EditProfileScreen({super.key});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -26,7 +27,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context, 'Nothing to show');
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.menu))],
         title: const Text('Edit Profile Screen'),
         centerTitle: true,
@@ -105,10 +111,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        final profileInfo = ProfileData(
+                          name: nameController.text.trim(),
+                          email: emailController.text.trim(),
+                          bio: bioController.text.trim(),
+                        );
+
+                        Navigator.pop(context, profileInfo);
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Form is valid')),
                         );
+                        
                         print('Form is valid');
+                        // Navigator.pop(context, 'Profile updated');
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Form is not valid')),
